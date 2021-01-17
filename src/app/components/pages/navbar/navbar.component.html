@@ -1,0 +1,75 @@
+<mat-toolbar color="primary">
+    <!-- <a routerLink="/" routerLinkActivate="Activate">PetRescue</a> -->
+    <span class="fill-remaining-space">
+          <a routerLink="/" routerLinkActivate="Activate">
+            <button mat-button class="logomenu">
+               <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+           </button>
+          </a>
+    </span>
+         
+    <span *ngIf="user$ | async as user; else login" >
+
+           <a>
+              <button mat-button [matMenuTriggerFor]="menu1" class="logomenu">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+               </button>
+              <mat-menu #menu1="matMenu">
+               <a routerLink="/pets" routerLinkActivate="Activate">
+                 <button  mat-menu-item class="opcionesmenu">Show Pets</button>
+               </a>
+               <a routerLink="/newpet" routerLinkActivate="Activate">
+                <button  mat-menu-item class="opcionesmenu">Found New pet?</button>
+              </a>
+              
+               <a routerLink="/about" routerLinkActivate="Activate">
+                 <button mat-menu-item class="opcionesmenu">About</button>
+               </a>
+              </mat-menu>
+           </a>
+
+        <a>        
+            <button mat-button [matMenuTriggerFor]="menu2" class="logomenu">
+                <mat-icon aria-hidden="false" aria-label="Example home icon">account_circle</mat-icon>
+            </button>
+     
+        <mat-menu #menu2="matMenu">
+          <a>
+            <button  mat-menu-item class="opcionesmenu">Modificar Perfil</button>
+          </a>
+          <a (click)="onLogout()">
+            <button mat-menu-item class="opcionesmenu">Logout</button>
+          </a>
+        </mat-menu>
+         </a>
+    
+
+    <!-- <a><img class="logousuario" src = "../../../../assets/images/logousuario2.png" alt="Usuario"></a> 
+    <a routerLink="/about" 
+    routerLinkActivate="Activate"
+    >
+     <button mat-button>About</button>  
+    </a>
+    <a routerLink="/admin" 
+       routerLinkActivate="Activate">
+        <button mat-button>Admin</button>
+    </a>
+    <a *ngIf="user" (click)="onLogout()" >
+        <button mat-button>LogOut</button>
+    </a> -->  
+   </span>
+
+    <ng-template #login>
+        <a routerLink="/register" 
+        routerLinkActivate="Activate">
+        <button mat-button>Register</button></a>
+    
+        <a routerLink="/login" 
+           routerLinkActivate="Activate">
+           <button mat-button>Login</button></a>
+        <a routerLink="/about" 
+           routerLinkActivate="Activate">
+            <button mat-button>About</button>  
+        </a> 
+    </ng-template>
+</mat-toolbar>

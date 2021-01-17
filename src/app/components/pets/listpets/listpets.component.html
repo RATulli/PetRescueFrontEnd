@@ -1,0 +1,38 @@
+<div *ngIf="!load">
+   <div class="container">
+        <mat-spinner></mat-spinner>
+        <h1>Cargandoo.......</h1>       
+   </div>
+</div>
+
+<div *ngIf="load">
+<div class="container">
+    <mat-card class="pet-card" *ngFor="let pet of pets">
+        <img matCardImage [src]="pet.imagePet" [routerLink]="['/pet', pet.id]">
+        <mat-card-header>
+            <mat-card-title>
+                <a>{{pet.namePet}}</a>
+            </mat-card-title>   
+        </mat-card-header>
+        
+        <mat-card-content>
+            <p>
+                 {{pet.zoneFoundPet}}
+            </p>
+        </mat-card-content>   
+        <mat-divider></mat-divider>
+        <mat-card-actions>
+            <mat-chip-list>
+                <mat-chip>
+                    {{pet.typepet}}
+                </mat-chip>
+                <mat-chip>
+                    {{pet.breedpet}}
+                </mat-chip>
+                
+            </mat-chip-list>
+        </mat-card-actions>
+
+    </mat-card>
+</div>
+</div>

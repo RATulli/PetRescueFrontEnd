@@ -1,0 +1,33 @@
+<!-- <h1>File Upload</h1>
+<input type="file" (change)="onFileSelected($event)">
+<button type="button" (click)="onUpLoad()">UPLOAD</button>
+
+
+ 
+-->
+
+<div class="container">
+    <mat-card class="pet-card">
+        <mat-card-header>
+            <mat-card-title>
+                <a>CARGAR MASCOTA</a>
+            </mat-card-title>   
+        </mat-card-header>
+        
+        <mat-card-content>
+            <p>
+                <div>
+                    <mat-form-field appearance="legacy">
+                     <mat-label>ID</mat-label>
+                     <input matInput type="text" [(ngModel)]="id">
+                     <mat-hint>Id de la mascota</mat-hint>
+                    </mat-form-field>
+                   <p>
+                   <app-file-upload (complete)="onFileComplete($event)"></app-file-upload>
+                   <!-- <button mat-raised-button color="primary" mat-button (click)="cargarMascota()">UPLOAD</button> -->
+               </div>              
+            <p>
+        </mat-card-content>       
+    </mat-card>
+</div>
+

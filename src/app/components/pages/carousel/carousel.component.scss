@@ -1,0 +1,25 @@
+.carousel{
+    background: #2f4357;
+    margin-top: 0px;
+}
+.carousel-item{
+    text-align: center;
+    min-height: 280px; /* Prevent carousel from being distorted if for some reason image doesn't load */
+}
+.imagen{
+    width: 100vw;
+    height: 80vh;
+    
+}
+
+.bd-example{
+    padding:0;
+    position: absolute;
+    border: 1px solid #fff;
+}
+h1{
+    color:orangered;
+}
+p{
+    color: white;
+}

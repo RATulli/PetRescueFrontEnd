@@ -1,0 +1,32 @@
+<div class="container" *ngIf="mypet!==null">
+    <table class="default">
+        <tr>      
+          <td>
+            <mat-card class="pet-card">
+                <div>
+                    <!-- ID: {{mypet.id}} -->
+                </div>        
+                <img matCardImage class="align-center" [src]="mypet.imagePet">      
+                <mat-card-content>
+                    <mat-card-title>
+                        <a>{{mypet.namePet}}</a>
+                    </mat-card-title>   
+                    <p>
+                         {{mypet.zoneFoundPet}}
+                    </p>
+                </mat-card-content>       
+            </mat-card>                    
+          </td>
+          <td> <p>
+            {{mypet.zoneFoundPet}}
+              
+          </p></td>
+        </tr>
+      </table>
+
+
+    
+</div>
+<div class="container" *ngIf="mypet===null">
+    <a>No se encontro la mascota. </a>
+</div> 

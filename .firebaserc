@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "petrescueusers": {
+      "hosting": {
+        "petRescue001": [
+          "petrescueusers"
+        ]
+      }
+    }
+  }
+}
