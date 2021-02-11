@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { filter } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { PetService } from 'src/app/services/pet.service';
 })
 export class ListpetsComponent implements OnInit {
 
+  
   pets = new Array<petI>();
 
   public load: boolean;
@@ -21,6 +22,7 @@ export class ListpetsComponent implements OnInit {
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
+  
   constructor(private petService: PetService) 
   {
      this.load = false;
@@ -28,9 +30,10 @@ export class ListpetsComponent implements OnInit {
 
   async ngOnInit() {
   
+    
     try{
       await (
-        this.pets = this.petService.getAllPets().filter(Pet => Pet.typepet=='Cat') 
+          this.pets = this.petService.getAllPets()       
         ); 
        setTimeout(() => {
         this.load = true;
@@ -41,23 +44,7 @@ export class ListpetsComponent implements OnInit {
        console.log(error);
      }        
 
-    /* try{
-      await (
-        this.petService.getAllPets()
-         .subscribe(data => {
-           console.log(data);
-           this.pets = data.filter(Pet => Pet.)
-         })
-        ); 
-       setTimeout(() => {
-        this.load = true;
-      }, 2400); 
-     }
-     catch(error)
-     {
-       console.log(error);
-     }
-     */
+  
   }
 
 }

@@ -1,4 +1,4 @@
-.mat-spinner{
+mat-spinner{
     display: flex;
     justify-content: center;
     margin-left: auto;
@@ -6,6 +6,9 @@
     vertical-align: middle;
 }
 
+.loading {
+    margin-top: -10px;
+}
 
 .container{
     margin-top: 25px;
@@ -14,7 +17,7 @@
     grid-column-gap: 10px;
     grid-row-gap: 15px;
     justify-content: center;
-
+   
     a{
         cursor: pointer;
         color: #fff;

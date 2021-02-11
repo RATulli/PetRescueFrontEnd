@@ -3,8 +3,7 @@ import {AuthService} from '../../../services/auth.service';
 import {UserI} from '../../../models/user.interface';
 import {FormGroup, FormControl, Validators} from '@angular/forms'; 
 import {Router} from '@angular/router';
-import { FirebaseApp } from '@angular/fire';
-import { Observable } from 'rxjs';
+
 
 
 @Component({
@@ -15,7 +14,6 @@ import { Observable } from 'rxjs';
 export class LoginComponent implements OnInit {
 
   public message: string;
-  public token: string;
 
   constructor(private authService: AuthService, private route: Router) { }
 
@@ -30,7 +28,23 @@ export class LoginComponent implements OnInit {
   async onLogin(form : UserI){
     
     try{
-      const user = await this.authService.loginByEmail(form);
+      await this.authService.loginServerToken(form);
+      if (this.authService.getToken())
+      {
+        
+        this.route.navigate([this.authService.getURL()]);
+      }
+    }
+    catch(error){
+      console.log('Error', error);
+      this.message = 'Invalid User or wrong password';
+    }
+  }
+
+  async onGoogleLogin()
+  {
+    try{
+      const user = await this.authService.loginGoogle(); 
       if (user){
         this.route.navigate(['/home']);
       }
@@ -41,10 +55,4 @@ export class LoginComponent implements OnInit {
       this.message = 'Invalid User or wrong password';
     }
   }
-
-  onGoogleLogin()
-  {
-     this.authService.loginGoogle();
-  }
-
 }

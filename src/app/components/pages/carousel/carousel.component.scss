@@ -1,6 +1,6 @@
 .carousel{
     background: #2f4357;
-    margin-top: 0px;
+
 }
 .carousel-item{
     text-align: center;
@@ -14,8 +14,9 @@
 
 .bd-example{
     padding:0;
-    position: absolute;
+    position: relative;
     border: 1px solid #fff;
+    top: -20px;
 }
 h1{
     color:orangered;

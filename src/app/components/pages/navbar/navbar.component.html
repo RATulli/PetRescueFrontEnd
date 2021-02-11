@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <!-- <a routerLink="/" routerLinkActivate="Activate">PetRescue</a> -->
+   
     <span class="fill-remaining-space">
           <a routerLink="/" routerLinkActivate="Activate">
             <button mat-button class="logomenu">
@@ -8,7 +8,7 @@
           </a>
     </span>
          
-    <span *ngIf="user$ | async as user; else login" >
+    <span *ngIf="this.authService.getToken() else login" >
 
            <a>
               <button mat-button [matMenuTriggerFor]="menu1" class="logomenu">
@@ -34,7 +34,7 @@
             </button>
      
         <mat-menu #menu2="matMenu">
-          <a>
+          <a (click)="profileView()">
             <button  mat-menu-item class="opcionesmenu">Modificar Perfil</button>
           </a>
           <a (click)="onLogout()">
@@ -44,19 +44,7 @@
          </a>
     
 
-    <!-- <a><img class="logousuario" src = "../../../../assets/images/logousuario2.png" alt="Usuario"></a> 
-    <a routerLink="/about" 
-    routerLinkActivate="Activate"
-    >
-     <button mat-button>About</button>  
-    </a>
-    <a routerLink="/admin" 
-       routerLinkActivate="Activate">
-        <button mat-button>Admin</button>
-    </a>
-    <a *ngIf="user" (click)="onLogout()" >
-        <button mat-button>LogOut</button>
-    </a> -->  
+   
    </span>
 
     <ng-template #login>

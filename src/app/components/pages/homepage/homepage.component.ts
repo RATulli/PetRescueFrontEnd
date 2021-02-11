@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UserI } from 'src/app/models/user.interface';
+
 import { AuthService } from 'src/app/services/auth.service';
-import { GuardGuard } from '../../auth/guard.guard';
 
 
 @Component({
@@ -12,18 +10,16 @@ import { GuardGuard } from '../../auth/guard.guard';
 })
 export class HomepageComponent implements OnInit {
   
-  public isLogged=false;
-  opened = true;
-  public user$: Observable<any>;
+ 
 
-  constructor(public authService: AuthService,
-              public authGuard: GuardGuard        
+  constructor(public authService: AuthService       
               ) { 
-                this.user$ = this.authService.userData;
-    
+
   }
 
   ngOnInit() {
+    console.log("TOKEN:", this.authService.getToken());
+    console.log("TOKEN LOCALSTORAGE: ", sessionStorage.getItem('token'));
   
   }
 

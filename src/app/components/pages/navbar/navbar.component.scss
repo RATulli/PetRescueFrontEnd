@@ -1,34 +1,29 @@
-
-.logousuario{
-  position: relative;
-  height: 5%; 
-  width: 5%; 
-  top: 10px;
-  background-color: transparent;
-  color: #fff;
+span{
+  margin-right: auto;
   
 }
+
+mat-toolbar{
+  flex: 1 1 auto;
+  position: relative;
+  top: -10px;
+}
+
+.opcionesmenu{
+  color: black;
+}
+
 
 a{
   color:#fff;
 }
 
-span{
-  margin-right: auto;
-}
-
 button{
   position: relative;
-  top: 10px;
+  top: auto;
   color: #fff;
   border:1px solid #fff;
 }
-
-.opcionesmenu{
-  color:black;
-}
-
-
 
 
 

@@ -1,19 +1,6 @@
 <div class="background">
-<!--   
-<div *ngIf="user$ | async as user; else login"> 
-    <br>
-    <a>What would you like to do?</a>
-    <br>
-    <a routerLink="/pets" routerLinkActivate="Activate">
-        <button mat-raised-button color="primary">Show List of Found Pets</button>
-    </a>    
-    <a routerLink="/newpet" routerLinkActivate="Activate">
-        <button mat-raised-button color="primary">Found a pet?</button>
-    </a>    
-</div> 
-        
---> 
-<div *ngIf="user$ | async as user; else login">
+
+<div *ngIf="this.authService.getToken() else login">
    
         <a>
             <img src="../../../../assets/images/MainPhotoRes.jpg">

@@ -1,11 +1,13 @@
-<div *ngIf="!load">
+<div class="loading" *ngIf="!load">
    <div class="container">
         <mat-spinner></mat-spinner>
         <h1>Cargandoo.......</h1>       
    </div>
 </div>
 
-<div *ngIf="load">
+
+
+<div class="loaded" *ngIf="load">
 <div class="container">
     <mat-card class="pet-card" *ngFor="let pet of pets">
         <img matCardImage [src]="pet.imagePet" [routerLink]="['/pet', pet.id]">

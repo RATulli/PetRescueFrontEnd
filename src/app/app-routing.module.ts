@@ -10,27 +10,28 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { NewPetComponent } from './components/pets/new-pet/new-pet.component';
 import { GuardGuard } from './components/auth/guard.guard';
-import { ListPetsComponent } from './components/pets/list-pets/list-pets.component';
 import { ListpetsComponent } from './components/pets/listpets/listpets.component';
+import { VerificationEmailComponent } from './components/auth/verification-email/verification-email.component';
+import { ProfileComponent } from './components/users/profile/profile.component';
 
 const routes: Routes = [
-  //{ path: 'home', loadChildren: () => import('./components/pages/home/home.module').then(m => m.HomeModule) },
- { path: '', redirectTo:'/home', pathMatch: 'full'},
+   { path: '', redirectTo:'/home', pathMatch: 'full' },
  { path: 'home', component: HomepageComponent },
  { path: 'admin', component: AdminComponent,canActivate: [GuardGuard] },
  { path: 'login', component: LoginComponent},
  { path: 'register', component: RegisterComponent},
  { path: 'forgot-password', component: ForgotPasswordComponent},
- // { path: 'pets', loadChildren: () => import('./components/pets/list-pets/list-pets.module').then(m => m.ListPetsModule) },
- { path: 'pets', component: ListpetsComponent , canActivate: [GuardGuard]}, 
+ { path: 'verification-email', component: VerificationEmailComponent},
+ { path: 'pets', component: ListpetsComponent , canActivate: [GuardGuard]},
  { path: 'pet/:id', component: PetComponent, canActivate: [GuardGuard]},
  { path: 'about', component: AboutComponent}, 
  { path: 'newpet', component: NewPetComponent, canActivate: [GuardGuard]},
+ { path: 'profile', component: ProfileComponent, canActivate: [GuardGuard]},
  { path: '**', component: Page404Component }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

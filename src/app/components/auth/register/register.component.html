@@ -1,5 +1,12 @@
-<div>
+<div *ngIf="alert" class="alert alert-{{alertType}} alert-dismissible fade show" role="alert">
+    <strong>{{alertType}}</strong> {{message}} 
+    <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div> 
 
+
+<div>
 <mat-card>
     <mat-card-title>Register</mat-card-title>
     <mat-card-content>
@@ -16,7 +23,7 @@
             </p>
             <div>
                 <p>
-                    Have an account ? <a [routerLink]="['/login']">Login </a>
+                    Do you have an account ? <a [routerLink]="['/login']">Login </a>
                 </p>
             </div>
             <button type="submit" mat-raised-button color="primary" (click)="onAddUser(registerForm.value)"> 

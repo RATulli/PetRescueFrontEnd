@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-//import { petI } from '../models/pet.interface';
 import {Pet} from '../models/pet';
 import { LoadPet } from '../models/load-pet';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { petI } from '../models/pet.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +12,10 @@ export class PetService {
   private apiUrl = 'localhost:8081/image/analize-image';
   private petList = new Array<Pet>();
   private petId =0;
-  constructor(private http: HttpClient) { 
+  public category: string;
+
+  constructor(private http: HttpClient) {
+    this.category = "none"; 
     this.petList.push({
       id:'1', 
       namePet:'Figaro',
@@ -1087,7 +1088,15 @@ export class PetService {
     return (mypets.length >0) ? mypets[0]: null;
   }    
 
- 
+  getAllPetsByCats(){
+    return this.getAllPets().filter(Pet => Pet.typepet== "Cat");
+  }
+  
+  getAllPetsByDogs(){
+    return this.getAllPets().filter(Pet => Pet.typepet== "Dog");
+  }
+
+
   upLoadPet(pet: LoadPet): Promise<any> {
       const httpOptions = {
         headers: new HttpHeaders({
@@ -1096,4 +1105,6 @@ export class PetService {
       };
       return this.http.post(this.apiUrl, pet, httpOptions).toPromise();
   }
+
+  
 }

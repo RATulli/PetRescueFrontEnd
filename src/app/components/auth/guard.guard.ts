@@ -10,11 +10,10 @@ import { LoginComponent } from './login/login.component';
 })
 export class GuardGuard implements CanActivate {
 
- private user$: Observable<any>;
 
   constructor(private authService: AuthService,
               private router: Router){
-      this.user$ = authService.userData;
+      
 
   }
 
@@ -24,23 +23,41 @@ export class GuardGuard implements CanActivate {
       let url: string =state.url;
       return this.checkLogin(url);
     }
-    
 
-  checkLogin(url:String): boolean {
-    //console.log('IsLoggedIn:'+ this.authService.getUserName.toString());
+    checkLogin(url: string): boolean {
+      console.log('IsLoggedIn:' + this.authService.getToken());
+  
+      if (this.authService.getToken())
+        return true;
+  
+      // Store the attempted URL for redirecting
+      this.authService.setURL(url);
+  
+      // Navigate to the login page with extras
+      this.router.navigate(['/login']);
+      
+      return false;
+    }
+  } 
+
+
+    /* 
+    checkLogin(url:String): boolean {
+    console.log('IsLoggedIn:'+ this.authService.getToken());
     if (this.authService.getToken())
-       {
-        //this.router.navigate([url]); 
-         
+       {  
+         console.log("Hay token", this.authService.getToken());
          return true;
        }
-      else {
-        this.router.navigate(['/login']);
-        return false;
-      }
-    
-    
 
-  }
+    console.log("URL",url.toString());
+    this.authService.setURL(url.toString()); 
+    console.log("No Hay token", this.authService.getToken());
+    this.router.navigate(['/login']);
+    return false;
+      }
+    */
+      
   
-}
+  
+

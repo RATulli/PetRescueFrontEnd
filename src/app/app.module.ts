@@ -31,6 +31,8 @@ import { ListpetsComponent } from './components/pets/listpets/listpets.component
 import { RegisterComponent } from './components/auth/register/register.component';
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { CarouselComponent } from './components/pages/carousel/carousel.component';
+import { VerificationEmailComponent } from './components/auth/verification-email/verification-email.component';
+import { ProfileComponent } from './components/users/profile/profile.component';
 
 
 @NgModule({
@@ -49,6 +51,8 @@ import { CarouselComponent } from './components/pages/carousel/carousel.componen
     RegisterComponent,
     ForgotPasswordComponent,
     CarouselComponent,
+    VerificationEmailComponent,
+    ProfileComponent,
 
   ],
   imports: [
