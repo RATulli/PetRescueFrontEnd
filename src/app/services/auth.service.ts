@@ -20,6 +20,10 @@ export class AuthService {
   userDetails = undefined;
   private apiURL: string = 'http://localhost:8081';
   public userData$: Observable<firebase.User>;
+  public userLogo: string = 'https://picsum.photos/id/113/150/150';
+  private phone: string;
+  private userUID: string;
+
 
   constructor(private authService: AngularFireAuth, private http: HttpClient) {
     this.tokenAPI = undefined;
@@ -38,9 +42,27 @@ export class AuthService {
         }
   }
 
-  loginGoogle(){
-      return this.authService.signInWithPopup(new auth.GoogleAuthProvider());
-      //this.getTokenFireBase();
+  async loginGoogle(){
+
+      
+      const result = await this.authService.signInWithPopup(new auth.GoogleAuthProvider()).then(
+        data => {
+             console.log(data);
+        });
+
+      
+      this.tokenAPI = (await (await this.authService.currentUser).getIdToken()).toString();
+      this.userUID = (await this.authService.currentUser).uid;
+      
+
+      //console.log("TOKEN LOGIN: ", this.tokenAPI);
+      //console.log("UID LOGIN: ", this.userUID);
+
+      sessionStorage.setItem('token', this.tokenAPI);
+
+
+      return result;
+
   }
 
   async loginByEmail(user:UserI) {
@@ -49,6 +71,8 @@ export class AuthService {
       const result = await this.authService.signInWithEmailAndPassword(email, password); 
       
       console.log("TOKEN?", (await this.authService.currentUser).getIdToken());
+      console.log("USER UID", (await this.authService.currentUser).uid);
+      
 
       localStorage.setItem('token', this.tokenAPI);
 
@@ -86,10 +110,11 @@ export class AuthService {
 
       const { email, password } = user;  
       const result = await this.authService.signInWithEmailAndPassword(email, password);
-       console.log("TOKEN?", (await (await (await this.authService.currentUser).getIdToken())));
+      console.log("TOKEN?", (await (await this.authService.currentUser).getIdToken()));
+      console.log("USER UID?", (await this.authService.currentUser).uid);
       
       this.tokenAPI = (await (await this.authService.currentUser).getIdToken()).toString();
-
+      this.userUID = (await this.authService.currentUser).uid;
       console.log("TOKEN OBTENIDO:", this.tokenAPI);
       
      
@@ -154,29 +179,11 @@ export class AuthService {
     getURL():string{
       return this.reDirectUrl;
     }
-    
 
-    saveUser(user: UserI){
-      console.log("Users: ", user.displayName);
-      console.log("User photoURL", user.photoURL);
- 
-      
-
-      this.authService.currentUser
-      .then( user => {
-         user.updateProfile({
-           displayName: user.displayName,
-           photoURL: user.photoURL
-         });
-         console.log("User Updated");
-      })
-      .catch(err => {
-        console.log("Error =>", err);
-
-        //Muestra un error aqui. No llega a salvar el update.
-        // Ahora al segundo intento no lo hace. Problemas de conexion a internet?  
-      });
+    getUID(): string {
+         return this.userUID;
     }
+    
 }
     
     

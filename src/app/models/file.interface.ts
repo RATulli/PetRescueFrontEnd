@@ -4,3 +4,4 @@ export interface fileI{
     size: string;
     type: string;
 }
+

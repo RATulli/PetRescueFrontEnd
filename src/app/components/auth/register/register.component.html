@@ -14,6 +14,7 @@
             <p>
                 <mat-form-field>
                     <input type="text" matInput placeholder="UserName" formControlName="email" />
+                    <div *ngIf="registerForm.valid && registerForm.untouched" class="validation-error">This field is required</div>
                 </mat-form-field>
             </p>
             <p>

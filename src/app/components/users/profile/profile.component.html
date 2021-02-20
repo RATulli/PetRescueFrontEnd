@@ -1,21 +1,47 @@
+
 <form (ngSubmit)="onSaveUser(profileForm.value)" [formGroup]="profileForm"> 
     <mat-card class="profile-card"> 
         <mat-card-header>
-            <img src="https://picsum.photos/200">
+            <div class="label button">
+                <p>Change</p>
+                <img [src]= "currentImage" (click) ="inputImageProfile.click">
+                <input
+                  hidden
+                  type="file"
+                  #inputImageProfile
+                  formControlName="photoUrl"
+                  (change) = "handleImage( ($event?.target?.file)[0])" />
+            </div>
+
+            
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content> 
             <mat-form-field>
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="Name" formControlName="displayName">
+                <mat-error *ngIf ="profileForm.get('displayName').value.lenght==0 && profileForm.dirty">
+                    Required User Name
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Phone Number</mat-label>
+                <input matInput placeholder="Phone" formControlName="phoneNumber">
+                <mat-error *ngIf ="profileForm.get('phoneNumber').touched &&  profileForm.get('phoneNumber').errors?.required">
+                    Required Phone Number
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="email" formControlName="email">
-                <div class="mat-dialog-actions">
-                    <input type="submit" class="mat-flat-button" value="Save"> 
-                </div> 
-
+                <input matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf ="profileForm.dirty && profileForm.get('email').errors?.required">
+                    Required Email Adress
+                </mat-error>
             </mat-form-field>
+            <div class="mat-dialog-actions">
+                <!-- sugerencia agregar un boton de material aqui -->
+                 <!---    <input type="submit" [disabled] = "!enableUpdateButton(profileForm.value)" class="mat-flat-button" value="Save"> --> 
+                 <input type="submit" [disabled] = "profileForm.get('phoneNumber').value===''" class="mat-flat-button" value="Save"> 
+                </div>                                    
         </mat-card-content>
     </mat-card>
 </form>

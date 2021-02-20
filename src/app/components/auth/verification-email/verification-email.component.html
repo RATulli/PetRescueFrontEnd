@@ -1,4 +1,4 @@
-<div class="card mt-5" *ngIf="this.authService.getToken() else loading">
+<div class="card mt-5">
     <div class="card-body">
       <h3 class="card-title text-center">Thank you for Registering!</h3>
       <div class="form-group mt-2">
@@ -14,10 +14,13 @@
         <button class="btn btn-primary" (click)="onSendEmail()">
           Resend verification email
         </button>
+        
+        <button class="btn btn-primary" (click)= "goHomePage()">
+          HomePage
+        </button>
+
+
       </div>
     </div>
   </div>
   
-  <ng-template #loading>
-    <mat-spinner></mat-spinner>
-  </ng-template>

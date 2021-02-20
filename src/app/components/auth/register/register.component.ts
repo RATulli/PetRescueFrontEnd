@@ -28,13 +28,13 @@ export class RegisterComponent implements OnInit {
 
    async onAddUser(form : UserI){
       const user = await this.authService.registerUser(form.email, form.password);
-      console.log("aquiii estoy??");
       if (user){
           this.checkUserIsVerified(form);
+          
       }
       else {
          this.alert=true;
-         this.message="Invalid Email";
+         this.message="Invalid Email Or Password";
          this.alertType="warning";        
       }  
     } 
@@ -43,6 +43,7 @@ export class RegisterComponent implements OnInit {
       if (user && user.emailVerified) {
         this.router.navigate(['/home']);
       } else if (user) {
+        console.log("Entre aqui....");
         this.router.navigate(['/verification-email']);
       }
      

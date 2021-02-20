@@ -6,11 +6,21 @@
             <p>
                 <mat-form-field>
                     <input type="text" matInput placeholder="UserName" formControlName="email" />
+                    <mat-error *ngIf="loginForm.get('email').errors?.required" >
+                        Required Email Adress
+                    </mat-error>
                 </mat-form-field>
             </p>
             <p>
                 <mat-form-field>
-                    <input type="password" matInput placeholder="Password" formControlName="password" />
+                    <input type="password" matInput [type]="hide ? 'password' : 'text'" required placeholder="Password" formControlName="password" />
+                    <button mat-mat-icon-button matSuffix (click) = "hide = !hide"
+                        [attr.area-label]="'Hide Password'" [attr.aria-pressed]="hide">
+                        <mat-icon aria-hidden="false">{{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="loginForm.get('password').errors?.required" >
+                        Required Password
+                    </mat-error>
                 </mat-form-field>
             </p>
             <button type="submit" mat-raised-button color="primary" (click)="onLogin(loginForm.value)"> 

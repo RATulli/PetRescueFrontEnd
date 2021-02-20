@@ -22,6 +22,8 @@ const routes: Routes = [
  { path: 'register', component: RegisterComponent},
  { path: 'forgot-password', component: ForgotPasswordComponent},
  { path: 'verification-email', component: VerificationEmailComponent},
+ { path: 'pets/cats', component: ListpetsComponent , canActivate: [GuardGuard]},
+ { path: 'pets/dogs', component: ListpetsComponent , canActivate: [GuardGuard]},
  { path: 'pets', component: ListpetsComponent , canActivate: [GuardGuard]},
  { path: 'pet/:id', component: PetComponent, canActivate: [GuardGuard]},
  { path: 'about', component: AboutComponent}, 

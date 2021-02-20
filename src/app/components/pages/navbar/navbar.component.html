@@ -9,24 +9,37 @@
     </span>
          
     <span *ngIf="this.authService.getToken() else login" >
+       <a>    
+          <button mat-button [matMenuTriggerFor]="animals">
+             <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+          </button>
+          <mat-menu #animals="matMenu">
+          <button class="opcionesmenu" mat-menu-item [matMenuTriggerFor]="ListPets">Lost Pets</button>
+      
+         <a routerLink="/newpet" routerLinkActivate="Activate">
+             <button class="opcionesmenu" mat-menu-item >Found New Pet ? </button>
+         </a>
+         <a routerLink="/about" routerLinkActivate="Activate">
+            <button class="opcionesmenu" mat-menu-item >About</button>
+         </a>
+         
+         </mat-menu>
+         <mat-menu #ListPets="matMenu">
 
-           <a>
-              <button mat-button [matMenuTriggerFor]="menu1" class="logomenu">
-                <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
-               </button>
-              <mat-menu #menu1="matMenu">
-               <a routerLink="/pets" routerLinkActivate="Activate">
-                 <button  mat-menu-item class="opcionesmenu">Show Pets</button>
-               </a>
-               <a routerLink="/newpet" routerLinkActivate="Activate">
-                <button  mat-menu-item class="opcionesmenu">Found New pet?</button>
-              </a>
-              
-               <a routerLink="/about" routerLinkActivate="Activate">
-                 <button mat-menu-item class="opcionesmenu">About</button>
-               </a>
-              </mat-menu>
-           </a>
+          <a [routerLink]="['/pets']" [queryParams]="{ typepet: 'Cat'}"  routerLinkActivate="Activate">
+            <button class="opcionesmenu" mat-menu-item>Cats</button>
+         </a>
+         <a [routerLink]="['/pets']" [queryParams]="{ typepet: 'Dog'}"  routerLinkActivate="Activate">
+             <button class="opcionesmenu" mat-menu-item >Dog</button>
+         </a>
+         <a routerLink="/pets" routerLinkActivate="Activate">
+          <button class="opcionesmenu" mat-menu-item >All</button>
+        </a>
+
+
+         </mat-menu>
+  
+        </a>
 
         <a>        
             <button mat-button [matMenuTriggerFor]="menu2" class="logomenu">
@@ -42,9 +55,6 @@
           </a>
         </mat-menu>
          </a>
-    
-
-   
    </span>
 
     <ng-template #login>

@@ -1,3 +1,4 @@
+
 mat-spinner{
     display: flex;
     justify-content: center;
@@ -8,6 +9,11 @@ mat-spinner{
 
 .loading {
     margin-top: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;   
+
 }
 
 .container{
@@ -27,7 +33,7 @@ mat-spinner{
         text-align: center;
         
     }
-}
+} 
 
 .pet-card{
     background: #94225e;

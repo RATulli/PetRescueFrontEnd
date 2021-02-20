@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,9 +12,11 @@ export class VerificationEmailComponent implements OnDestroy {
 
   
   
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
+
+   
   }
 
   onSendEmail(): void {
@@ -21,7 +24,11 @@ export class VerificationEmailComponent implements OnDestroy {
     this.authService.sendVerificationEmail();
   }
 
-  ngOnDestroy() {
+  goHomePage(){
+    this.router.navigate(['/home']);
+  }
+
+   ngOnDestroy() {
     this.authService.logout();
   }
 
