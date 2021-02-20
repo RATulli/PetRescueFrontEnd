@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { HttpClient, HttpResponse, HttpRequest, HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpRequest, HttpEventType, HttpErrorResponse, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { catchError, last, map, tap } from 'rxjs/operators';
 import {FileUploadModel} from '../../models/file-uploaded-model';
 import { of } from 'rxjs/internal/observable/of';
+import { AuthService } from 'src/app/services/auth.service';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-file-upload',
@@ -21,22 +23,23 @@ import { of } from 'rxjs/internal/observable/of';
 export class FileUploadComponent implements OnInit {
   @Input() text = 'Upload';
   @Input() param = 'file';
-  @Input() target = 'http://localhost:8081/image/analize-image';
-  @Input() accept = 'multipart/form-data';
+  @Input() petInfoParamName = 'petInfo';
+  @Input() petInfo = '{"name":"Felix", "description":"The cat", "tags":["Cartoon"]}'
+  @Input() target = 'http://localhost:8080/reports/report-missing-pet';
+  @Input() accept = 'multipart/form-data; charset=UTF-8';
   // tslint:disable-next-line:no-output-native
   @Output() complete = new EventEmitter<string>();
   fileInformation: any;
   FilesPets: Array<FileUploadModel> = [];
 
   // tslint:disable-next-line:variable-name
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   onClick() {
     const fileUpload = document.getElementById('fileUpload') as HTMLInputElement;
-
     fileUpload.onchange = () => {
       // tslint:disable-next-line:prefer-for-of
       for (let index = 0; index < fileUpload.files.length; index++) {
@@ -70,15 +73,53 @@ export class FileUploadComponent implements OnInit {
   }
 
   private uploadFile(file: FileUploadModel) {
+    
+    const userToken = this.authService.getToken();
+    const userTokenBearer = 'Bearer '+ userToken;
     const fd = new FormData();
-    fd.append(this.param, file.data);
+    fd.append(this.petInfoParamName, new Blob
+      (
+        [
+          JSON.stringify
+          (
+            {
+              "name":"Felix", 
+              "description":"The cat", 
+              "tags":
+                [
+                  "Cartoon"
+                ]
+            }
+          )
+        ], 
+        {
+          type : "application/json"
+        }
+      )
+      );
+    fd.append(this.param, file.data, 'filename.jpg');
+    const httpHeader = new HttpHeaders();
+    httpHeader.set('Authentication', 'Bearer '+ userToken);
+    httpHeader.set('Content-Type', this.accept);
+    httpHeader.set('Accept', 'application/json');
+
+    console.log('Bearer token' + userTokenBearer);
+
+
+    let httpOptions = {
+      headers: new HttpHeaders()
+        .set('Authorization', userTokenBearer)
+  };
 
     const req = new HttpRequest('POST', this.target, fd, {
-      reportProgress: true
+      headers: httpHeader,
+      reportProgress: true,
+      withCredentials: true
     });
     console.log('accediendo....');
     file.inProgress = false;
-    file.sub = this._http.request(req).pipe(
+    //file.sub = this._http.request(req).pipe(
+    file.sub = this._http.post<HttpEvent<Subscription>>(this.target, fd, httpOptions).pipe(
       map(event => {
         switch (event.type) {
               case HttpEventType.UploadProgress:
