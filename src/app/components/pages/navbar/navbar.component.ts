@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
   
   async onLogout(){
     try{
-      await this.authService.logoutServerToken();
+      this.authService.logoutServerToken;
       this.router.navigate(['/']);
     }
     catch(error){

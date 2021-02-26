@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpRequest, HttpEventType, HttpErrorResponse
 import { catchError, last, map, tap } from 'rxjs/operators';
 import {FileUploadModel} from '../../models/file-uploaded-model';
 import { of } from 'rxjs/internal/observable/of';
+import { AuthService } from 'PetRescueFrontEnd/src/app/services/auth.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -29,9 +30,11 @@ export class FileUploadComponent implements OnInit {
   FilesPets: Array<FileUploadModel> = [];
 
   // tslint:disable-next-line:variable-name
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private authService: AuthService) { }
 
   ngOnInit() {
+
+    
   }
 
   onClick() {

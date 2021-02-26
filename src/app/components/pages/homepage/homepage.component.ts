@@ -18,8 +18,10 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
+   
     console.log("TOKEN:", this.authService.getToken());
     console.log("TOKEN LOCALSTORAGE: ", sessionStorage.getItem('token'));
+    console.log("")
   
   }
 

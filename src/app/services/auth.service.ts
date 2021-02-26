@@ -15,7 +15,6 @@ export class AuthService {
 
   
   public tokenAPI: string;
-  private JWT_TOKEN = "ahashdaslkdahskjdahskdj";
   private reDirectUrl: string;
   userDetails = undefined;
   private apiURL: string = 'http://localhost:8081';
@@ -44,7 +43,7 @@ export class AuthService {
 
   async loginGoogle(){
 
-      
+      this.tokenAPI = undefined;
       const result = await this.authService.signInWithPopup(new auth.GoogleAuthProvider()).then(
         data => {
              console.log(data);
@@ -99,28 +98,25 @@ export class AuthService {
      }
      }
 
+
+
     async loginServerToken(user: UserI ) {
         
-        let tokenS: String;
+       /* let tokenS: String;
         const httpOptions = {
           headers: new HttpHeaders({
             'Content-type': 'aplication/json'
           })
-        };
+        }; */
 
       const { email, password } = user;  
       const result = await this.authService.signInWithEmailAndPassword(email, password);
       console.log("TOKEN?", (await (await this.authService.currentUser).getIdToken()));
       console.log("USER UID?", (await this.authService.currentUser).uid);
-      
       this.tokenAPI = (await (await this.authService.currentUser).getIdToken()).toString();
       this.userUID = (await this.authService.currentUser).uid;
       console.log("TOKEN OBTENIDO:", this.tokenAPI);
-      
-     
-
     //const promise = this.http.post(this.apiURL, user, httpOptions).toPromise();
-
      /* promise.then ( responde => {
           console.log("Ingreso exitoso, con obtencion de token");
           })
@@ -144,10 +140,14 @@ export class AuthService {
 
     */
 
-    logoutServerToken(): void {
+  
+
+    async logoutServerToken() {
+       console.log("cerrando sesion....");
        sessionStorage.removeItem('token');  
        this.tokenAPI = undefined;
        this.authService.signOut();
+       console.log("SALIIII....", this.tokenAPI);
     }
 
     async sendVerificationEmail(): Promise<void> {
@@ -167,8 +167,9 @@ export class AuthService {
     }
 
     getToken(): string {
-      return sessionStorage.getItem('token');
-      //return this.tokenAPI;
+      console.log("Obtener Token: ",sessionStorage.getItem('token') );
+      return this.tokenAPI;
+      
     }
 
     setURL(data: string)

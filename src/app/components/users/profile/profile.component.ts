@@ -41,9 +41,7 @@ export class ProfileComponent implements OnInit {
      // Para futura implementacion de manejo de usuarios. 
   
      console.log("GETUID(): ", this.authService.getUID());
-     
-
-      this.userProfileService.getUserProfile(this.authService.getUID()).subscribe ( User => {
+     this.userProfileService.getUserProfile(this.authService.getUID()).subscribe ( User => {
         this.initValuesForm(User);  
          console.log("INICIO DE PROFILE USERS -> ", User);
         /*  if (User.photoURL) 
